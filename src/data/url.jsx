@@ -1,0 +1,1 @@
+export const url = 'https://react-vite-agenda-web-at-default-rtdb.firebaseio.com/';

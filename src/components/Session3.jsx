@@ -20,6 +20,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import WorkIcon from '@mui/icons-material/Work';
+import { useGuardarDatosFormularioMutation } from '../service/ecApi';
 
 const profesionalOptions = [
   'Psicólogo/a',
@@ -36,132 +37,111 @@ const Session3 = ({ refProp }) => {
     email: '',
     telefono: '',
     profesion: '',
+    zona: '',
+    localidad: '',
   });
 
   const [showAlert, setShowAlert] = useState(false);
   const [openFormModal, setOpenFormModal] = useState(false);
   const [openThanksModal, setOpenThanksModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const [guardarDatosFormulario] = useGuardarDatosFormularioMutation();
 
   const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+
+    // Limpiar zona y localidad si cambia a otra profesión
+    if (name === 'profesion' && value !== 'Acompañante Terapéutico') {
+      setForm((prev) => ({
+        ...prev,
+        profesion: value,
+        zona: '',
+        localidad: '',
+      }));
+    } else {
+      setForm((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
 
-  const handleOpenFormModal = () => {
-    setOpenFormModal(true);
-  };
-
-  const handleConfirmDownload = () => {
+  const handleConfirmDownload = async () => {
     const isFormComplete =
-      form.nombre && form.email && form.telefono && form.profesion;
+      form.nombre &&
+      form.email &&
+      form.telefono &&
+      form.profesion &&
+      (form.profesion !== 'Acompañante Terapéutico' || (form.zona && form.localidad));
 
-    if (isFormComplete) {
-      setShowAlert(false);
+    if (!isFormComplete) {
+      setShowAlert(true);
+      return;
+    }
+
+    setShowAlert(false);
+    setLoading(true);
+
+    try {
+      await guardarDatosFormulario(form);
       setOpenFormModal(false);
       setOpenThanksModal(true);
-    } else {
+    } catch (error) {
+      console.error('Error al guardar los datos:', error);
       setShowAlert(true);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleFinish = () => {
     setOpenThanksModal(false);
-    window.open('https://drive.google.com/file/d/1Og-wMmXYk7GQ1YS2JfsqtelGvviUWATY/view?usp=sharing', '_blank'); // <-- Cambiar a URL real
+  // window.open('https://drive.google.com/file/d/1Og-wMmXYk7GQ1YS2JfsqtelGvviUWATY/view?usp=sharing', '_blank');
+    window.open('https://expo.dev/artifacts/eas/vfrBK7aE7oNGfNMWEVfRmK.apk', '_blank');
+    
   };
 
   return (
-    <Box
-      ref={refProp}
-      sx={{
-        my: 10,
-        px: { xs: 2, md: 4 },
-        textAlign: 'center',
-      }}
-    >
-      <Box
-  ref={refProp}
-  sx={{
-    my: 10,
-    px: { xs: 2, md: 4 },
-  }}
->
-<Paper
-  elevation={3}
-  sx={{
-    px: { xs: 2, sm: 4, md: 6 },
-    py: { xs: 4, sm: 5, md: 6 },
-    borderRadius: 4,
-    maxWidth: 600,
-    mx: 'auto',
-    textAlign: 'center',
-  }}
->
-  <Typography
-    variant="h5"
-    gutterBottom
-    color="primary"
-    sx={{
-      fontWeight: 'bold',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: 1,
-      mb: 2,
-    }}
-  >
-    📲 Descargar App Gratis
-  </Typography>
-
-  <Typography
-    variant="body1"
-    color="text.secondary"
-    mb={4}
-    sx={{ maxWidth: 500, mx: 'auto' }}
-  >
-    Completá este breve formulario para acceder a la descarga. Nos ayuda a darte mejor soporte.
-  </Typography>
-
-  <Button
-    variant="contained"
-    color="primary"
-    size="large"
-    startIcon={<DownloadIcon />}
-    onClick={handleOpenFormModal}
-    sx={{
-      px: 4,
-      py: 1.5,
-      fontWeight: 'bold',
-      borderRadius: 3,
-      boxShadow: 3,
-      transition: '0.3s',
-      '&:hover': {
-        boxShadow: 6,
-        transform: 'translateY(-2px)',
-      },
-    }}
-  >
-    Descargar App
-  </Button>
-</Paper>
-
-</Box>
-
+    <Box ref={refProp} sx={{ my: 10, px: { xs: 2, md: 4 }, textAlign: 'center' }}>
+      <Paper elevation={3} sx={{ px: { xs: 2, sm: 4, md: 6 }, py: { xs: 4, sm: 5, md: 6 }, borderRadius: 4, maxWidth: 600, mx: 'auto' }}>
+        <Typography variant="h5" gutterBottom color="primary" sx={{ fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
+          📲 Descargar App Gratis
+        </Typography>
+        <Typography variant="body1" color="text.secondary" mb={4}>
+          Completá este breve formulario para acceder a la descarga. Nos ayuda a darte mejor soporte.
+        </Typography>
+        <Button
+          variant="contained"
+          color="primary"
+          size="large"
+          startIcon={<DownloadIcon />}
+          onClick={() => setOpenFormModal(true)}
+          sx={{
+            px: 4,
+            py: 1.5,
+            fontWeight: 'bold',
+            borderRadius: 3,
+            boxShadow: 3,
+            transition: '0.3s',
+            '&:hover': {
+              boxShadow: 6,
+              transform: 'translateY(-2px)',
+            },
+          }}
+        >
+          Descargar App
+        </Button>
+      </Paper>
 
       {/* Modal del Formulario */}
-      <Dialog
-        open={openFormModal}
-        onClose={() => setOpenFormModal(false)}
-        fullWidth
-        maxWidth="sm"
-      >
+      <Dialog open={openFormModal} onClose={() => setOpenFormModal(false)} fullWidth maxWidth="sm">
         <DialogTitle>
           <Typography variant="h5" fontWeight="bold" color="primary">
             💡 Completá tus datos
           </Typography>
         </DialogTitle>
-        <DialogContent dividers sx={{ pt: 2 }}>
+        <DialogContent dividers>
           <Paper elevation={3} sx={{ p: 3, borderRadius: 2 }}>
             <Typography variant="body2" color="text.secondary" mb={3}>
               Así podemos enviarte novedades, soporte y acceso a nuevas funciones.
@@ -201,20 +181,21 @@ const Session3 = ({ refProp }) => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  label="Teléfono"
-                  name="telefono"
-                  value={form.telefono}
-                  onChange={handleChange}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <PhoneAndroidIcon color="action" />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
+              <TextField
+                fullWidth
+                label="WhatsApp"
+                name="telefono"
+                value={form.telefono}
+                onChange={handleChange}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <PhoneAndroidIcon color="action" />
+                    </InputAdornment>
+                  ),
+                }}
+                placeholder="Ej: 11 2345 6789"
+              />
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -239,11 +220,40 @@ const Session3 = ({ refProp }) => {
                   ))}
                 </TextField>
               </Grid>
+
+              {/* Condicionales si es Acompañante Terapéutico */}
+              {form.profesion === 'Acompañante Terapéutico' && (
+                <>
+                  <Grid item xs={12}>
+                    <TextField
+                      select
+                      fullWidth
+                      label="¿Qué zona de Buenos Aires te gustaría conseguir pacientes?"
+                      name="zona"
+                      value={form.zona}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value="CABA">CABA</MenuItem>
+                      <MenuItem value="Zona Sur">Zona Sur</MenuItem>
+                      <MenuItem value="Zona Norte">Zona Norte</MenuItem>
+                      <MenuItem value="Zona Oeste">Zona Oeste</MenuItem>
+                    </TextField>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      label="Barrio / Localidad"
+                      name="localidad"
+                      value={form.localidad}
+                      onChange={handleChange}
+                    />
+                  </Grid>
+                </>
+              )}
+
               {showAlert && (
                 <Grid item xs={12}>
-                  <Alert severity="warning">
-                    Por favor, completá todos los campos.
-                  </Alert>
+                  <Alert severity="warning">Por favor, completá todos los campos requeridos.</Alert>
                 </Grid>
               )}
             </Grid>
@@ -253,8 +263,13 @@ const Session3 = ({ refProp }) => {
           <Button onClick={() => setOpenFormModal(false)} color="secondary">
             Cancelar
           </Button>
-          <Button onClick={handleConfirmDownload} variant="contained" color="primary">
-            Continuar
+          <Button
+            onClick={handleConfirmDownload}
+            variant="contained"
+            color="primary"
+            disabled={loading}
+          >
+            {loading ? 'Enviando...' : 'Continuar'}
           </Button>
         </DialogActions>
       </Dialog>
