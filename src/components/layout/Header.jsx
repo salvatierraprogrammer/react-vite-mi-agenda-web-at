@@ -13,7 +13,7 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import { GiBrain } from 'react-icons/gi'; // Ícono tipo "brain"
 
-const Header = () => {
+const Header = ({scrollToDownload }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const toggleDrawer = (open) => () => {
@@ -54,23 +54,23 @@ const Header = () => {
       </AppBar>
 
       <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer(false)}>
-        <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
-          <List>
-            <ListItem button>
-              <ListItemText primary="Inicio" />
-            </ListItem>
-            <ListItem button>
-              <ListItemText primary="Sobre mí" />
-            </ListItem>
-            <ListItem button>
-              <ListItemText primary="Descargar App" />
-            </ListItem>
-            <ListItem button>
-              <ListItemText primary="Contacto" />
-            </ListItem>
-          </List>
-        </Box>
-      </Drawer>
+      <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+        <List>
+          <ListItem button>
+            <ListItemText primary="Inicio" />
+          </ListItem>
+          <ListItem button>
+            <ListItemText primary="Sobre mí" />
+          </ListItem>
+          <ListItem button onClick={scrollToDownload}>
+            <ListItemText primary="Descargar App" />
+          </ListItem>
+          <ListItem button>
+            <ListItemText primary="Contacto" />
+          </ListItem>
+        </List>
+      </Box>
+    </Drawer>
     </>
   );
 };

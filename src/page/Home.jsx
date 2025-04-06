@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Container } from '@mui/material';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
@@ -9,15 +9,23 @@ import Session4 from '../components/Session4';
 import Session5 from '../components/Session5';
 
 const Home = () => {
+  const downloadRef = useRef(null);
+ 
+
+  const scrollToDownload = () => {
+    downloadRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <>
-      <Header />
+      <Header scrollToDownload={() => downloadRef.current?.scrollIntoView({ behavior: 'smooth' })} />
       <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-        <Session1 />
-        <Session5 />
+        <Session1 scrollToDownload={scrollToDownload}/>
         <Session2 />
-        <Session3 />
+       
+        <Session3 refProp={downloadRef} />
         <Session4 />
+        <Session5 />
       </Container>
       <Footer />
     </>

@@ -11,8 +11,15 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  InputAdornment,
+  Paper,
 } from '@mui/material';
+
 import DownloadIcon from '@mui/icons-material/Download';
+import PersonIcon from '@mui/icons-material/Person';
+import EmailIcon from '@mui/icons-material/Email';
+import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
+import WorkIcon from '@mui/icons-material/Work';
 
 const profesionalOptions = [
   'Psicólogo/a',
@@ -23,7 +30,7 @@ const profesionalOptions = [
   'Otro',
 ];
 
-const Session3 = () => {
+const Session3 = ({ refProp }) => {
   const [form, setForm] = useState({
     nombre: '',
     email: '',
@@ -61,88 +68,182 @@ const Session3 = () => {
 
   const handleFinish = () => {
     setOpenThanksModal(false);
-    window.open('https://example.com/descarga-app', '_blank'); // Reemplaza con el link real
+    window.open('https://drive.google.com/file/d/1Og-wMmXYk7GQ1YS2JfsqtelGvviUWATY/view?usp=sharing', '_blank'); // <-- Cambiar a URL real
   };
 
   return (
-    <Box sx={{ my: 10, px: { xs: 2, md: 4 }, textAlign: 'center' }}>
-      <Typography variant="h4" gutterBottom color="primary">
-        📲 Descargar App
-      </Typography>
-      <Typography variant="body1" color="text.secondary" mb={4}>
-        Para acceder a la descarga de la app, completá el formulario. Es rápido y nos ayuda a brindarte una mejor experiencia.
-      </Typography>
+    <Box
+      ref={refProp}
+      sx={{
+        my: 10,
+        px: { xs: 2, md: 4 },
+        textAlign: 'center',
+      }}
+    >
+      <Box
+  ref={refProp}
+  sx={{
+    my: 10,
+    px: { xs: 2, md: 4 },
+  }}
+>
+  <Paper
+    elevation={3}
+    sx={{
+      px: { xs: 3, md: 6 },
+      py: 6,
+      textAlign: 'center',
+      borderRadius: 4,
+    }}
+  >
+    <Typography
+      variant="h4"
+      gutterBottom
+      color="primary"
+      sx={{
+        fontWeight: 'bold',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 1,
+      }}
+    >
+      📲 Descargar App
+    </Typography>
 
-      <Button
-        variant="contained"
-        color="primary"
-        size="large"
-        startIcon={<DownloadIcon />}
-        onClick={handleOpenFormModal}
-        sx={{ px: 4, py: 1.5, fontWeight: 'bold' }}
-      >
-        Descargar App
-      </Button>
-      
+    <Typography
+      variant="body1"
+      color="text.secondary"
+      mb={4}
+      sx={{ maxWidth: 500, mx: 'auto' }}
+    >
+      Completá este breve formulario para acceder a la descarga. Nos ayuda a darte mejor soporte.
+    </Typography>
+
+    <Button
+      variant="contained"
+      color="primary"
+      size="large"
+      startIcon={<DownloadIcon />}
+      onClick={handleOpenFormModal}
+      sx={{
+        px: 4,
+        py: 1.5,
+        fontWeight: 'bold',
+        borderRadius: 3,
+        boxShadow: 3,
+        transition: '0.3s',
+        '&:hover': {
+          boxShadow: 6,
+          transform: 'translateY(-2px)',
+        },
+      }}
+    >
+      Descargar App
+    </Button>
+  </Paper>
+</Box>
+
 
       {/* Modal del Formulario */}
-      <Dialog open={openFormModal} onClose={() => setOpenFormModal(false)} fullWidth maxWidth="sm">
-        <DialogTitle>💡 Completa tus datos</DialogTitle>
-        <DialogContent dividers sx={{ pt: 2 }}>
-          <Typography variant="body2" color="text.secondary" mb={2}>
-            Te pedimos algunos datos para enviarte novedades y soporte en el uso de la app.
+      <Dialog
+        open={openFormModal}
+        onClose={() => setOpenFormModal(false)}
+        fullWidth
+        maxWidth="sm"
+      >
+        <DialogTitle>
+          <Typography variant="h5" fontWeight="bold" color="primary">
+            💡 Completá tus datos
           </Typography>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Nombre y Apellido"
-                name="nombre"
-                value={form.nombre}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Email"
-                name="email"
-                type="email"
-                value={form.email}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Teléfono"
-                name="telefono"
-                value={form.telefono}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                select
-                fullWidth
-                label="Tipo de Profesional en Salud"
-                name="profesion"
-                value={form.profesion}
-                onChange={handleChange}
-              >
-                {profesionalOptions.map((option) => (
-                  <MenuItem key={option} value={option}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Grid>
-            {showAlert && (
+        </DialogTitle>
+        <DialogContent dividers sx={{ pt: 2 }}>
+          <Paper elevation={3} sx={{ p: 3, borderRadius: 2 }}>
+            <Typography variant="body2" color="text.secondary" mb={3}>
+              Así podemos enviarte novedades, soporte y acceso a nuevas funciones.
+            </Typography>
+            <Grid container spacing={3}>
               <Grid item xs={12}>
-                <Alert severity="warning">Por favor, completá todos los campos.</Alert>
+                <TextField
+                  fullWidth
+                  label="Nombre y Apellido"
+                  name="nombre"
+                  value={form.nombre}
+                  onChange={handleChange}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <PersonIcon color="action" />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
               </Grid>
-            )}
-          </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Email"
+                  name="email"
+                  type="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <EmailIcon color="action" />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Teléfono"
+                  name="telefono"
+                  value={form.telefono}
+                  onChange={handleChange}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <PhoneAndroidIcon color="action" />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  select
+                  fullWidth
+                  label="Tipo de Profesional en Salud"
+                  name="profesion"
+                  value={form.profesion}
+                  onChange={handleChange}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <WorkIcon color="action" />
+                      </InputAdornment>
+                    ),
+                  }}
+                >
+                  {profesionalOptions.map((option) => (
+                    <MenuItem key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+              {showAlert && (
+                <Grid item xs={12}>
+                  <Alert severity="warning">
+                    Por favor, completá todos los campos.
+                  </Alert>
+                </Grid>
+              )}
+            </Grid>
+          </Paper>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpenFormModal(false)} color="secondary">
@@ -156,14 +257,23 @@ const Session3 = () => {
 
       {/* Modal de Agradecimiento */}
       <Dialog open={openThanksModal} onClose={handleFinish}>
-        <DialogTitle>✅ ¡Gracias por registrarte!</DialogTitle>
+        <DialogTitle>
+          <Typography variant="h6" fontWeight="bold" color="success.main">
+            ✅ ¡Gracias por registrarte!
+          </Typography>
+        </DialogTitle>
         <DialogContent>
-          <Typography>
-            Ya casi estás listo. Hacé clic en el botón para comenzar la descarga de la aplicación.
+          <Typography sx={{ mt: 1 }}>
+            Ya casi estás listo. Hacé clic abajo para comenzar la descarga de la app.
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleFinish} variant="contained" color="primary">
+          <Button
+            onClick={handleFinish}
+            variant="contained"
+            color="primary"
+            startIcon={<DownloadIcon />}
+          >
             Ir a la descarga
           </Button>
         </DialogActions>

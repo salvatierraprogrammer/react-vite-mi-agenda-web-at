@@ -1,57 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
-  Grid,
   Typography,
   Button,
   useTheme,
   Container,
+  Skeleton,
+  Fade,
 } from '@mui/material';
-import sec1 from '../assets/img/sec1.png';
-import sec2 from '../assets/img/sec2.png';
-import sec4 from '../assets/img/sec4.png';
-import sec5 from '../assets/img/sec5.png';
+
 import sec6 from '../assets/img/sec6.png';
 
-const features = [
-    {
-        image: sec5,
-        text: 'Accedé rápidamente a tus pacientes',
-      },
-  {
-    image: sec4,
-    text: 'Accedé rápidamente a tus pacientes',
-  },
- 
-  {
-    image: sec2,
-    text: 'Organizá tu agenda desde cualquier lugar',
-  },
-  {
-    image: sec1,
-    text: 'Seguimiento de tratamientos al instante',
-  },
-];
-
-const Session1 = () => {
+const Session1 = ({ scrollToDownload }) => {
   const theme = useTheme();
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
     <Box sx={{ py: 8, backgroundColor: theme.palette.background.default }}>
-      <Container sx={{ maxWidth: '1200px', px: { xs: 2, sm: 3, md: 4 } }}>
-         {/* Sección de descarga con imagen y botón */}
-        
-          {/* Título principal */}
-          <Typography
+      <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3, md: 4 } }}>
+        <Typography
           variant="h4"
           align="center"
           gutterBottom
-          sx={{ fontWeight: 'bold', color: theme.palette.primary.main }}
+          sx={{ fontWeight: 700, color: theme.palette.primary.main }}
         >
-          Gestioná tus pacientes de forma sencilla, desde tu celular
+          La forma más simple de gestionar a tus pacientes
         </Typography>
 
-        {/* Sección de descarga */}
+        <Typography
+          variant="subtitle1"
+          align="center"
+          sx={{
+            color: theme.palette.text.secondary,
+            maxWidth: 700,
+            mx: 'auto',
+            mb: 6,
+          }}
+        >
+          Organizá tus consultas, accedé al historial clínico y conectate con tus pacientes desde cualquier lugar. Todo desde tu celular.
+        </Typography>
+
         <Box
           mt={6}
           sx={{
@@ -63,16 +51,30 @@ const Session1 = () => {
             mb: 8,
           }}
         >
-          <Box
-            component="img"
-            src={sec6}
-            alt="Descargá la app"
-            sx={{
-              width: { xs: '100%', md: '40%' },
-              height: 'auto',
-             
-            }}
-          />
+          <Box sx={{ width: { xs: '100%', md: '40%' } }}>
+            {!imageLoaded && (
+              <Skeleton
+                variant="rectangular"
+                animation="wave"
+                sx={{ width: '100%', aspectRatio: '4 / 3', borderRadius: 2 }}
+              />
+            )}
+
+            <Fade in={imageLoaded}>
+              <Box
+                component="img"
+                src={sec6}
+                alt="Descargá la app"
+                onLoad={() => setImageLoaded(true)}
+                sx={{
+                  width: '100%',
+                  height: 'auto',
+                  display: imageLoaded ? 'block' : 'none',
+                  borderRadius: 2,
+                }}
+              />
+            </Fade>
+          </Box>
 
           <Box sx={{ textAlign: { xs: 'center', md: 'left' } }}>
             <Typography variant="h6" gutterBottom>
@@ -82,15 +84,13 @@ const Session1 = () => {
               variant="contained"
               color="primary"
               size="large"
-              href="https://play.google.com/store/apps/details?id=tu.app.id"
-              target="_blank"
-              sx={{ mt: 2, px: 4, py: 1.5, fontWeight: 'bold' }}
+              onClick={scrollToDownload}
+              sx={{ mt: 2, px: 5, py: 1.5, fontWeight: 'bold' }}
             >
-              Descargar desde Google Play
+              Descargar para Android
             </Button>
           </Box>
         </Box>
-        
       </Container>
     </Box>
   );

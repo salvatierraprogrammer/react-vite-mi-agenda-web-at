@@ -1,75 +1,95 @@
-import React from 'react';
-import { Box, Typography, Paper, Container, Avatar, Divider } from '@mui/material';
+import React, { useState } from 'react';
+import {
+  Box,
+  Typography,
+  Button,
+  useTheme,
+  Container,
+  Skeleton,
+  Fade,
+} from '@mui/material';
+import sec4 from '../assets/img/sec4.png';
 
-const Session2 = () => (
-  <Box sx={{ my: 8, px: { xs: 2, md: 4 }, textAlign: 'center' }}>
-    <Container maxWidth="md">
-      <Typography variant="h4" gutterBottom color="primary">
-        👨‍⚕️ Sobre mí
-      </Typography>
+const Session2 = () => {
+  const theme = useTheme();
+  const [imageLoaded, setImageLoaded] = useState(false);
 
-      {/* Avatar y presentación */}
-      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 4 }}>
-        <Avatar
-          alt="Acompañante Terapéutico"
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2WjS_hXJ9gKTPO0DP2wQa9ho1mxaq2aynxQ&s" // podés reemplazar esta URL con tu foto
-          sx={{ width: 100, height: 100, mb: 2 }}
-        />
-        <Typography variant="body1" color="text.secondary">
-          Soy acompañante terapéutico y también programador. Mi misión es combinar estas dos pasiones para crear herramientas que ayuden a otros profesionales de la salud mental a enfocarse en lo importante: sus pacientes.
+  return (
+    <Box sx={{ py: 8, backgroundColor: theme.palette.background.default }}>
+      <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3, md: 4 } }}>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ fontWeight: 700, color: theme.palette.primary.main }}
+        >
+          Acompañamiento terapéutico más humano y organizado
         </Typography>
-      </Box>
 
-      <Divider sx={{ mb: 4 }} />
-
-      {/* Primera sección */}
-      <Box sx={{ my: 4 }}>
-        <Paper
-          elevation={3}
+        <Box
+          mt={6}
           sx={{
-            p: { xs: 3, md: 4 },
-            backgroundColor: 'background.paper',
-            color: 'text.primary',
-            textAlign: 'left',
+            display: 'flex',
+            flexDirection: { xs: 'column', md: 'row' },
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 6,
           }}
         >
-          <Typography variant="h6" gutterBottom color="primary">
-            Mi enfoque
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            Estoy comprometido con acercar soluciones digitales a colegas del ámbito terapéutico.
-            Esta app está pensada para que puedas dedicar menos tiempo a lo administrativo
-            y más a lo humano.
-          </Typography>
-        </Paper>
-      </Box>
+          {/* Texto informativo */}
+          <Box sx={{ textAlign: { xs: 'center', md: 'left' }, flex: 1 }}>
+            <Typography variant="h6" gutterBottom>
+              🤝 Apoyo cercano, registro claro y continuidad del abordaje
+            </Typography>
 
-      {/* Segunda sección */}
-      <Box sx={{ my: 4 }}>
-        <Paper
-          elevation={3}
-          sx={{
-            p: { xs: 3, md: 4 },
-            backgroundColor: 'background.paper',
-            color: 'text.primary',
-            textAlign: 'left',
-          }}
-        >
-          <Typography variant="h6" gutterBottom color="primary">
-            ¿Por qué esta app?
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            Porque conozco las necesidades reales del trabajo terapéutico y sé lo difícil que puede ser encontrar herramientas simples, efectivas y pensadas desde la experiencia profesional.
-          </Typography>
-        </Paper>
-      </Box>
+            <Typography variant="body1" paragraph>
+              El acompañante terapéutico cumple un rol fundamental en los procesos de tratamiento, ofreciendo presencia, contención y seguimiento diario. Nuestra app facilita tu labor, permitiéndote registrar cada intervención, anotar observaciones clínicas y mantener comunicación constante con el equipo interdisciplinario.
+            </Typography>
 
-      {/* Cierre */}
-      <Typography variant="subtitle1" color="text.secondary" sx={{ mt: 6 }}>
-        Gracias por ser parte de esta comunidad que une salud y tecnología 💙
-      </Typography>
-    </Container>
-  </Box>
-);
+            <Typography variant="body1" paragraph>
+              Generá reportes de evolución, accedé a la historia del paciente y llevá un control detallado desde cualquier lugar. Todo pensado para que tu acompañamiento sea más eficiente, profesional y humano.
+            </Typography>
+
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              href="https://play.google.com/store/apps/details?id=tu.app.id"
+              target="_blank"
+              sx={{ mt: 2, px: 5, py: 1.5, fontWeight: 'bold' }}
+            >
+              Descargar desde Google Play
+            </Button>
+          </Box>
+
+          {/* Imagen ilustrativa con Skeleton y Fade */}
+          <Box sx={{ width: { xs: '100%', md: '45%' } }}>
+            {!imageLoaded && (
+              <Skeleton
+                variant="rectangular"
+                animation="wave"
+                sx={{ width: '100%', aspectRatio: '4 / 3', borderRadius: 2 }}
+              />
+            )}
+            <Fade in={imageLoaded}>
+              <Box
+                component="img"
+                src={sec4}
+                alt="Acompañamiento terapéutico digital"
+                onLoad={() => setImageLoaded(true)}
+                sx={{
+                  width: '100%',
+                  height: 'auto',
+                  display: imageLoaded ? 'block' : 'none',
+                  borderRadius: 2,
+                }}
+              />
+            </Fade>
+          </Box>
+        </Box>
+      </Container>
+    </Box>
+  );
+};
 
 export default Session2;
