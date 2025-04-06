@@ -21,7 +21,7 @@ import AppShortcutIcon from '@mui/icons-material/AppShortcut';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import CertGallery from './CertGallery';
 
-const Session5 = () => {
+const Session5 = ({refProp}) => {
   const certGalleryRef = useRef();
 
   const handleShowCertificadoAT = () => {
@@ -32,7 +32,7 @@ const Session5 = () => {
     <Box sx={{ my: 8, px: { xs: 2, md: 4 }, textAlign: 'center' }}>
       <Container maxWidth="md">
         {/* Título principal */}
-        <Typography variant="h4" gutterBottom color="primary">
+        <Typography ref={refProp} variant="h4" gutterBottom color="primary">
           👨‍⚕️ Sobre mí
         </Typography>
 
@@ -153,6 +153,7 @@ const Session5 = () => {
 
         {/* Certificados */}
         <CertGallery ref={certGalleryRef} />
+        
 
         {/* Cierre */}
         <Typography variant="subtitle1" color="text.secondary" sx={{ mt: 6 }}>

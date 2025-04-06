@@ -87,61 +87,65 @@ const Session3 = ({ refProp }) => {
     px: { xs: 2, md: 4 },
   }}
 >
-  <Paper
-    elevation={3}
+<Paper
+  elevation={3}
+  sx={{
+    px: { xs: 2, sm: 4, md: 6 },
+    py: { xs: 4, sm: 5, md: 6 },
+    borderRadius: 4,
+    maxWidth: 600,
+    mx: 'auto',
+    textAlign: 'center',
+  }}
+>
+  <Typography
+    variant="h5"
+    gutterBottom
+    color="primary"
     sx={{
-      px: { xs: 3, md: 6 },
-      py: 6,
-      textAlign: 'center',
-      borderRadius: 4,
+      fontWeight: 'bold',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: 1,
+      mb: 2,
     }}
   >
-    <Typography
-      variant="h4"
-      gutterBottom
-      color="primary"
-      sx={{
-        fontWeight: 'bold',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: 1,
-      }}
-    >
-      📲 Descargar App
-    </Typography>
+    📲 Descargar App
+  </Typography>
 
-    <Typography
-      variant="body1"
-      color="text.secondary"
-      mb={4}
-      sx={{ maxWidth: 500, mx: 'auto' }}
-    >
-      Completá este breve formulario para acceder a la descarga. Nos ayuda a darte mejor soporte.
-    </Typography>
+  <Typography
+    variant="body1"
+    color="text.secondary"
+    mb={4}
+    sx={{ maxWidth: 500, mx: 'auto' }}
+  >
+    Completá este breve formulario para acceder a la descarga. Nos ayuda a darte mejor soporte.
+  </Typography>
 
-    <Button
-      variant="contained"
-      color="primary"
-      size="large"
-      startIcon={<DownloadIcon />}
-      onClick={handleOpenFormModal}
-      sx={{
-        px: 4,
-        py: 1.5,
-        fontWeight: 'bold',
-        borderRadius: 3,
-        boxShadow: 3,
-        transition: '0.3s',
-        '&:hover': {
-          boxShadow: 6,
-          transform: 'translateY(-2px)',
-        },
-      }}
-    >
-      Descargar App
-    </Button>
-  </Paper>
+  <Button
+    variant="contained"
+    color="primary"
+    size="large"
+    startIcon={<DownloadIcon />}
+    onClick={handleOpenFormModal}
+    sx={{
+      px: 4,
+      py: 1.5,
+      fontWeight: 'bold',
+      borderRadius: 3,
+      boxShadow: 3,
+      transition: '0.3s',
+      '&:hover': {
+        boxShadow: 6,
+        transform: 'translateY(-2px)',
+      },
+    }}
+  >
+    Descargar App
+  </Button>
+</Paper>
+
 </Box>
 
 

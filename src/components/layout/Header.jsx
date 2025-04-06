@@ -7,14 +7,23 @@ import {
   Drawer,
   List,
   ListItem,
+  ListItemIcon,
   ListItemText,
   Box,
+  Button,
+  useTheme,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { GiBrain } from 'react-icons/gi'; // Ícono tipo "brain"
+import HomeIcon from '@mui/icons-material/Home';
+import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
+import DownloadIcon from '@mui/icons-material/Download';
+import InfoIcon from '@mui/icons-material/Info';
+import ContactMailIcon from '@mui/icons-material/ContactMail';
+import { GiBrain } from 'react-icons/gi';
 
-const Header = ({scrollToDownload }) => {
+const Header = ({ onNavigate }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const theme = useTheme();
 
   const toggleDrawer = (open) => () => {
     setDrawerOpen(open);
@@ -22,9 +31,14 @@ const Header = ({scrollToDownload }) => {
 
   return (
     <>
-      <AppBar position="static" sx={{ backgroundColor: '#022031' }}>
-        <Toolbar sx={{ display: 'flex', alignItems: 'center' }}>
-          {/* Logo + texto */}
+      <AppBar
+        sx={{
+          backgroundColor: theme.palette.background.default,
+          position: { xs: 'fixed', md: 'static' },
+          boxShadow: 'none', 
+        }}
+      >
+        <Toolbar sx={{ display: 'flex', alignItems: 'center',  backgroundColor: theme.palette.background.default }}>
           <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
             <GiBrain size={40} color="#32EE88" style={{ marginRight: 10 }} />
             <Box>
@@ -37,10 +51,16 @@ const Header = ({scrollToDownload }) => {
             </Box>
           </Box>
 
-          {/* Spacer para empujar el menú a la derecha */}
           <Box sx={{ flexGrow: 1 }} />
 
-          {/* Menú hamburguesa */}
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 2 }}>
+            <Button color="inherit" onClick={onNavigate.inicio}>Inicio</Button>
+            <Button color="inherit" onClick={onNavigate.servicios}>Servicios</Button>
+            <Button color="inherit" onClick={onNavigate.descargar}>Descargar App</Button>
+            <Button color="inherit" onClick={onNavigate.sobreMi}>Sobre mí</Button>
+            <Button color="inherit" onClick={onNavigate.contacto}>Contacto</Button>
+          </Box>
+
           <IconButton
             edge="end"
             color="inherit"
@@ -54,23 +74,31 @@ const Header = ({scrollToDownload }) => {
       </AppBar>
 
       <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer(false)}>
-      <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
-        <List>
-          <ListItem button>
-            <ListItemText primary="Inicio" />
-          </ListItem>
-          <ListItem button>
-            <ListItemText primary="Sobre mí" />
-          </ListItem>
-          <ListItem button onClick={scrollToDownload}>
-            <ListItemText primary="Descargar App" />
-          </ListItem>
-          <ListItem button>
-            <ListItemText primary="Contacto" />
-          </ListItem>
-        </List>
-      </Box>
-    </Drawer>
+        <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+          <List>
+            <ListItem button onClick={onNavigate.inicio}>
+              <ListItemIcon><HomeIcon sx={{ color: '#2FE383' }} /></ListItemIcon>
+              <ListItemText primary="Inicio" />
+            </ListItem>
+            <ListItem button onClick={onNavigate.servicios}>
+              <ListItemIcon><MiscellaneousServicesIcon sx={{ color: '#2FE383' }} /></ListItemIcon>
+              <ListItemText primary="Servicios" />
+            </ListItem>
+            <ListItem button onClick={onNavigate.descargar}>
+              <ListItemIcon><DownloadIcon sx={{ color: '#2FE383' }} /></ListItemIcon>
+              <ListItemText primary="Descargar App" />
+            </ListItem>
+            <ListItem button onClick={onNavigate.sobreMi}>
+              <ListItemIcon><InfoIcon sx={{ color: '#2FE383' }} /></ListItemIcon>
+              <ListItemText primary="Sobre mí" />
+            </ListItem>
+            <ListItem button onClick={onNavigate.contacto}>
+              <ListItemIcon><ContactMailIcon sx={{ color: '#2FE383' }} /></ListItemIcon>
+              <ListItemText primary="Contacto" />
+            </ListItem>
+          </List>
+        </Box>
+      </Drawer>
     </>
   );
 };

@@ -9,10 +9,13 @@ import {
   Button,
   useTheme,
   useMediaQuery,
+  ImageList,
+  ImageListItem,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+
 import certat from '../assets/imgcert/certat.png';
 import certpsicosis from '../assets/imgcert/certpsicosis.png';
 import certdispositivos from '../assets/imgcert/certdispositivos.png';
@@ -24,15 +27,15 @@ import certforo from '../assets/imgcert/certforo.png';
 import certrans from '../assets/imgcert/certrans.png';
 
 const certificates = [
-  { src: certat, title: 'Certificación como Acompañante Terapéutico' },
+  { src: certadicciones, title: 'Certificado en Adicciones' },
   { src: certpsicosis, title: 'Certificado en abordaje en Psicosis' },
+  { src: certforo, title: 'Participación en Foros Terapéuticos' },
+  { src: certat, title: 'Certificación como Acompañante Terapéutico' },
   { src: certdispositivos, title: 'Certificado en Dispositivos Terapéuticos' },
+  { src: certrans, title: 'Certificado en Niñeces y Adolecencias trans en escuelas' },
   { src: certadulto, title: 'Certificado en abordaje en tercera edad' },
   { src: certautismo, title: 'Certificado en abordaje en Autismo' },
   { src: certencuadre, title: 'Certificado en Encuadre Terapéutico' },
-  { src: certadicciones, title: 'Certificado en Adicciones' },
-  { src: certforo, title: 'Participación en Foros Terapéuticos' },
-  { src: certrans, title: 'Certificado en Niñeces y Adolecencias trans en escuelas' },
 ];
 
 const CertGallery = forwardRef((props, ref) => {
@@ -40,6 +43,7 @@ const CertGallery = forwardRef((props, ref) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [open, setOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [fade, setFade] = useState(true);
 
   useImperativeHandle(ref, () => ({
     openAtIndex: (index) => {
@@ -49,8 +53,26 @@ const CertGallery = forwardRef((props, ref) => {
   }));
 
   const handleClose = () => setOpen(false);
-  const handleNext = () => setCurrentIndex((i) => (i + 1) % certificates.length);
-  const handlePrev = () => setCurrentIndex((i) => (i - 1 + certificates.length) % certificates.length);
+
+  const handleNext = () => {
+    setFade(false);
+    setTimeout(() => {
+      setCurrentIndex((i) => (i + 1) % certificates.length);
+      setFade(true);
+    }, 150);
+  };
+
+  const handlePrev = () => {
+    setFade(false);
+    setTimeout(() => {
+      setCurrentIndex((i) => (i - 1 + certificates.length) % certificates.length);
+      setFade(true);
+    }, 150);
+  };
+
+  const handleThumbnailClick = (index) => {
+    setCurrentIndex(index);
+  };
 
   return (
     <Box>
@@ -73,8 +95,8 @@ const CertGallery = forwardRef((props, ref) => {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            bgcolor: theme.palette.primary.main,
-            color: theme.palette.primary.contrastText,
+            bgcolor: theme.palette.primary.default,
+            color: theme.palette.primary.main,
             px: 2,
             py: 1.5,
           }}
@@ -99,8 +121,8 @@ const CertGallery = forwardRef((props, ref) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: theme.palette.background.paper,
-            height: isMobile ? 'calc(100vh - 200px)' : 'auto',
+            backgroundColor: theme.palette.background.default,
+            height: isMobile ? 'calc(100vh - 260px)' : '60vh',
           }}
         >
           <Box
@@ -112,6 +134,8 @@ const CertGallery = forwardRef((props, ref) => {
               maxHeight: '100%',
               objectFit: 'contain',
               display: 'block',
+              transition: 'opacity 0.3s ease-in-out',
+              opacity: fade ? 1 : 0,
             }}
           />
 
@@ -132,12 +156,39 @@ const CertGallery = forwardRef((props, ref) => {
           </IconButton>
         </DialogContent>
 
+        {/* Miniaturas */}
+        <Box sx={{ px: 2, py: 1, bgcolor: theme.palette.background.paper }}>
+          <ImageList
+            cols={isMobile ? 4 : 6}
+            gap={8}
+            sx={{ overflowX: 'auto', flexWrap: 'nowrap', display: 'flex' }}
+          >
+            {certificates.map((cert, index) => (
+              <ImageListItem key={index} onClick={() => handleThumbnailClick(index)} sx={{ cursor: 'pointer' }}>
+                <Box
+                  component="img"
+                  src={cert.src}
+                  alt={cert.title}
+                  sx={{
+                    border: currentIndex === index ? `2px solid ${theme.palette.primary.main}` : '2px solid transparent',
+                    borderRadius: 1,
+                    width: 80,
+                    height: 50,
+                    objectFit: 'cover',
+                  }}
+                />
+              </ImageListItem>
+            ))}
+          </ImageList>
+        </Box>
+
+        {/* Botón de cerrar */}
         <Box
           sx={{
             display: 'flex',
             justifyContent: 'center',
             py: 2,
-            backgroundColor: theme.palette.grey[100],
+            bgcolor: theme.palette.primary.default,
           }}
         >
           <Button

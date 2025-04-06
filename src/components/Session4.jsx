@@ -18,7 +18,7 @@ import {
   useTheme,
 } from '@mui/material';
 
-const Session4 = () => {
+const Session4 = ({refProp}) => {
   const [selectedPlan, setSelectedPlan] = useState(null);
   const theme = useTheme();
 
@@ -55,7 +55,7 @@ const Session4 = () => {
   ];
 
   return (
-    <Box sx={{ my: 10, px: { xs: 2, md: 4 } }}>
+    <Box ref={refProp} sx={{ my: 10, px: { xs: 2, md: 4 } }}>
       <Typography
         variant="h4"
         align="center"
