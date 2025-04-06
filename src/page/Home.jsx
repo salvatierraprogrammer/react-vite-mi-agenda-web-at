@@ -32,7 +32,9 @@ const Home = () => {
         }}
       />
       <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-        <div ref={session1Ref}><Session1 /></div>
+        <div ref={session1Ref}>
+        <Session1 scrollToDownload={() => scrollToRef(session3Ref)} />
+      </div>
         <div ref={session2Ref}><Session2 /></div>
         <div ref={session3Ref}><Session3 /></div>
         <div ref={session4Ref}><Session4 /></div>

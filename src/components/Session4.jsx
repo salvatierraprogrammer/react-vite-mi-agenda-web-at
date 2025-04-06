@@ -16,19 +16,14 @@ import {
   ListItemText,
   Divider,
   useTheme,
+  useMediaQuery,
 } from '@mui/material';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
-const Session4 = ({refProp}) => {
+const Session4 = ({ refProp }) => {
   const [selectedPlan, setSelectedPlan] = useState(null);
   const theme = useTheme();
-
-  const handleOpenPlan = (plan) => {
-    setSelectedPlan(plan);
-  };
-
-  const handleCloseModal = () => {
-    setSelectedPlan(null);
-  };
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const plans = [
     {
@@ -36,10 +31,10 @@ const Session4 = ({refProp}) => {
       price: '$20.000 ARS',
       description: 'Pago único con acceso completo a todas las funcionalidades.',
       benefits: [
-        'Soporte técnico incluido',
-        'Actualizaciones de por vida',
-        'Base de datos local con cifrado',
-        'Compilación y entrega personalizada de la app',
+        'Incluye un mes de soporte técnico personalizado',
+        'Corrección de errores y actualizaciones esenciales',
+        'Base de datos local integrada con cifrado mediante Firebase (Google)',
+        'Compilación de la app con entrega lista para instalar y usar',
       ],
     },
     {
@@ -53,6 +48,9 @@ const Session4 = ({refProp}) => {
       ],
     },
   ];
+
+  const handleOpenPlan = (plan) => setSelectedPlan(plan);
+  const handleCloseModal = () => setSelectedPlan(null);
 
   return (
     <Box ref={refProp} sx={{ my: 10, px: { xs: 2, md: 4 } }}>
@@ -71,7 +69,17 @@ const Session4 = ({refProp}) => {
       <Grid container spacing={4} justifyContent="center">
         {plans.map((plan) => (
           <Grid item xs={12} md={5} key={plan.title}>
-            <Card elevation={3} sx={{ height: '100%' }}>
+            <Card
+              elevation={4}
+              sx={{
+                height: '100%',
+                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                '&:hover': {
+                  transform: 'translateY(-5px)',
+                  boxShadow: theme.shadows[6],
+                },
+              }}
+            >
               <CardContent>
                 <Typography variant="h6" color="primary" gutterBottom>
                   {plan.title}
@@ -84,7 +92,7 @@ const Session4 = ({refProp}) => {
                 </Typography>
               </CardContent>
               <CardActions sx={{ justifyContent: 'center', pb: 2 }}>
-                <Button variant="outlined" onClick={() => handleOpenPlan(plan)}>
+                <Button variant="contained" onClick={() => handleOpenPlan(plan)}>
                   Ver Detalles
                 </Button>
               </CardActions>
@@ -93,8 +101,13 @@ const Session4 = ({refProp}) => {
         ))}
       </Grid>
 
-      {/* Modal de Detalles del Plan */}
-      <Dialog open={!!selectedPlan} onClose={handleCloseModal} fullWidth maxWidth="sm">
+      <Dialog
+        open={!!selectedPlan}
+        onClose={handleCloseModal}
+        fullWidth
+        maxWidth="sm"
+        scroll="paper"
+      >
         <DialogTitle>{selectedPlan?.title}</DialogTitle>
         <DialogContent dividers>
           <Typography variant="h6" color="primary">
@@ -121,14 +134,24 @@ const Session4 = ({refProp}) => {
           </Button>
           <Button
             variant="contained"
-            color="primary"
-            onClick={() => {
-              handleCloseModal();
-              alert(`Seleccionaste el plan: ${selectedPlan.title}`);
-            }}
+            color="success"
+            href={`https://api.whatsapp.com/send?phone=541132752125&text=${encodeURIComponent(
+              `👋 ¡Hola! Estoy interesado en el plan *${selectedPlan?.title}*.\n\n` +
+              `💰 *Precio:* ${selectedPlan?.price}\n` +
+              `📝 *Descripción:* ${selectedPlan?.description}\n\n` +
+              `✅ *Beneficios:* \n${selectedPlan?.benefits
+                .map((benefit) => `• ${benefit}`)
+                .join('\n')}\n\n` +
+              `📅 ¿Podríamos agendar una reunión para conocer más sobre cómo implementarlo?`
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            startIcon={<WhatsAppIcon />}
           >
             Seleccionar Plan
           </Button>
+
+
         </DialogActions>
       </Dialog>
     </Box>

@@ -129,7 +129,7 @@ const Session2 = () => {
           <Button
             variant="contained"
             color="success"
-            href="https://cafecito.app/tudonacion"
+            href="https://cafecito.app/elcanaldelat"
             target="_blank"
           >
             Donar ahora

@@ -6,9 +6,9 @@ import {
   Stack,
   useTheme,
 } from '@mui/material';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import GitHubIcon from '@mui/icons-material/GitHub';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TelegramIcon from '@mui/icons-material/Telegram'; // 👈 Agregado
 
 const Footer = () => {
   const theme = useTheme();
@@ -27,24 +27,35 @@ const Footer = () => {
       <Stack direction="row" spacing={2} justifyContent="center" mb={1}>
         <IconButton
           color="inherit"
-          href="https://www.linkedin.com/in/dos354ab4/"
+          href="https://www.instagram.com/elcanaldelat/?hl=es"
           target="_blank"
-        >
-          <LinkedInIcon />
-        </IconButton>
-        <IconButton
-          color="inherit"
-          href="https://www.instagram.com/"
-          target="_blank"
+          rel="noopener noreferrer"
         >
           <InstagramIcon />
         </IconButton>
         <IconButton
           color="inherit"
-          href="https://github.com/"
+          href="https://www.facebook.com/ElCanalDelAT"
           target="_blank"
+          rel="noopener noreferrer"
         >
-          <GitHubIcon />
+          <FacebookIcon />
+        </IconButton>
+        <IconButton
+          color="inherit"
+          href="https://www.facebook.com/AbordandoSaludMental/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FacebookIcon />
+        </IconButton>
+        <IconButton
+          color="inherit"
+          href="https://t.me/+LHSwc904SMFiNzBh"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <TelegramIcon />
         </IconButton>
       </Stack>
       <Typography variant="body2">

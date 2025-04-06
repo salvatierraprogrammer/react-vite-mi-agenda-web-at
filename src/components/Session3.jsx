@@ -111,7 +111,7 @@ const Session3 = ({ refProp }) => {
       mb: 2,
     }}
   >
-    📲 Descargar App
+    📲 Descargar App Gratis
   </Typography>
 
   <Typography
