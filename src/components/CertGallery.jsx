@@ -13,17 +13,26 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import certat from '../assets/imgcert/certat.png';
+import certpsicosis from '../assets/imgcert/certpsicosis.png';
+import certdispositivos from '../assets/imgcert/certdispositivos.png';
+import certadulto from '../assets/imgcert/certadulto.png';
+import certautismo from '../assets/imgcert/certautismo.png';
+import certencuadre from '../assets/imgcert/certencuadre.png';
+import certadicciones from '../assets/imgcert/certadicciones.png';
+import certforo from '../assets/imgcert/certforo.png';
+import certrans from '../assets/imgcert/certrans.png';
 
 const certificates = [
-  { src: '/src/assets/imgcert/certat.png', title: 'Certificación como Acompañante Terapéutico' },
-  { src: '/src/assets/imgcert/certpsicosis.png', title: 'Certificado en abordaje en Psicosis' },
-  { src: '/src/assets/imgcert/certdispositivos.png', title: 'Certificado en Dispositivos Terapéuticos' },
-  { src: '/src/assets/imgcert/certadulto.png', title: 'Certificado en abordaje en tercera edad' },
-  { src: '/src/assets/imgcert/certautismo.png', title: 'Certificado en abordaje en Autismo' },
-  { src: '/src/assets/imgcert/certencuadre.png', title: 'Certificado en Encuadre Terapéutico' },
-  { src: '/src/assets/imgcert/certadicciones.png', title: 'Certificado en Adicciones' },
-  { src: '/src/assets/imgcert/certforo.png', title: 'Participación en Foros Terapéuticos' },
-  { src: '/src/assets/imgcert/certrans.png', title: 'Certificado en Niñeces y Adolecencias trans en escuelas' },
+  { src: certat, title: 'Certificación como Acompañante Terapéutico' },
+  { src: certpsicosis, title: 'Certificado en abordaje en Psicosis' },
+  { src: certdispositivos, title: 'Certificado en Dispositivos Terapéuticos' },
+  { src: certadulto, title: 'Certificado en abordaje en tercera edad' },
+  { src: certautismo, title: 'Certificado en abordaje en Autismo' },
+  { src: certencuadre, title: 'Certificado en Encuadre Terapéutico' },
+  { src: certadicciones, title: 'Certificado en Adicciones' },
+  { src: certforo, title: 'Participación en Foros Terapéuticos' },
+  { src: certrans, title: 'Certificado en Niñeces y Adolecencias trans en escuelas' },
 ];
 
 const CertGallery = forwardRef((props, ref) => {
