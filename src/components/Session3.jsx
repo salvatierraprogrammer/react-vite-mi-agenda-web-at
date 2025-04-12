@@ -305,7 +305,7 @@ const Session3 = ({ refProp }) => {
           
             onClick={() => {
               setOpenThanksModal(false);
-              window.open('https://drive.google.com/file/d/1Og-wMmXYk7GQ1YS2JfsqtelGvviUWATY/view?usp=sharing', '_blank');
+              window.open('https://drive.google.com/file/d/1Wf0xE4dW5G1gzevMgaCDFaHqnSE-YSkp/view?usp=drive_link', '_blank');
               handleFinish();
             }}
             variant="outlined"
