@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   Box,
   Typography,
@@ -11,38 +11,49 @@ import {
   CardContent,
   CardActions,
   Stack,
-  Grid,
+  Dialog,
+  DialogContent,
 } from '@mui/material';
 import WorkIcon from '@mui/icons-material/Work';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import SchoolIcon from '@mui/icons-material/School';
 import PsychologyAltIcon from '@mui/icons-material/PsychologyAlt';
 import AppShortcutIcon from '@mui/icons-material/AppShortcut';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import CertGallery from './CertGallery';
+import miperfil from '../assets/img/miperfil.jpeg';
 
-const Session5 = ({refProp}) => {
+const Session5 = ({ refProp }) => {
   const certGalleryRef = useRef();
+  const [openImage, setOpenImage] = useState(false);
 
   const handleShowCertificadoAT = () => {
-    certGalleryRef.current?.openAtIndex(3); // Índice del certificado AT
+    certGalleryRef.current?.openAtIndex(3);
   };
 
   return (
     <Box sx={{ my: 8, px: { xs: 2, md: 4 }, textAlign: 'center' }}>
       <Container maxWidth="md">
-        {/* Título principal */}
         <Typography ref={refProp} variant="h4" gutterBottom color="primary">
           👨‍⚕️ Sobre mí
         </Typography>
 
-        {/* Avatar y presentación */}
+        {/* Avatar visible y Dialog funcional */}
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 4 }}>
           <Avatar
             alt="Acompañante Terapéutico"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2WjS_hXJ9gKTPO0DP2wQa9ho1mxaq2aynxQ&s"
-            sx={{ width: 100, height: 100, mb: 2 }}
+            src={miperfil}
+            sx={{ width: 120, height: 120, cursor: 'pointer', mb: 2 }}
+            onClick={() => setOpenImage(true)}
           />
+          <Dialog open={openImage} onClose={() => setOpenImage(false)} maxWidth="sm" fullWidth>
+            <DialogContent sx={{ textAlign: 'center' }}>
+              <img
+                src={miperfil}
+                alt="Acompañante Terapéutico"
+                style={{ width: '100%', borderRadius: 8 }}
+              />
+            </DialogContent>
+          </Dialog>
           <Typography variant="body1" color="text.secondary">
             Soy acompañante terapéutico y también programador. Mi misión es combinar estas dos pasiones para crear herramientas que ayuden a otros profesionales de la salud mental a enfocarse en lo importante: sus pacientes.
           </Typography>
@@ -50,20 +61,17 @@ const Session5 = ({refProp}) => {
 
         <Divider sx={{ mb: 4 }} />
 
-        {/* Primera sección - Enfoque */}
+        {/* Secciones informativas */}
         <Paper elevation={3} sx={{ p: { xs: 3, md: 4 }, mb: 4, textAlign: 'left' }}>
           <Stack direction="row" alignItems="center" spacing={1} mb={1}>
             <PsychologyAltIcon color="primary" />
             <Typography variant="h6" color="primary">Mi enfoque</Typography>
           </Stack>
           <Typography variant="body1" color="text.secondary">
-            Estoy comprometido con acercar soluciones digitales a colegas del ámbito terapéutico.
-            Esta app está pensada para que puedas dedicar menos tiempo a lo administrativo
-            y más a lo humano.
+            Estoy comprometido con acercar soluciones digitales a colegas del ámbito terapéutico. Esta app está pensada para que puedas dedicar menos tiempo a lo administrativo y más a lo humano.
           </Typography>
         </Paper>
 
-        {/* Segunda sección - Por qué la app */}
         <Paper elevation={3} sx={{ p: { xs: 3, md: 4 }, mb: 4, textAlign: 'left' }}>
           <Stack direction="row" alignItems="center" spacing={1} mb={1}>
             <AppShortcutIcon color="primary" />
@@ -153,9 +161,8 @@ const Session5 = ({refProp}) => {
 
         {/* Certificados */}
         <CertGallery ref={certGalleryRef} />
-        
 
-        {/* Cierre */}
+        {/* Mensaje de cierre */}
         <Typography variant="subtitle1" color="text.secondary" sx={{ mt: 6 }}>
           Gracias por ser parte de esta comunidad que une salud y tecnología 💙
         </Typography>
