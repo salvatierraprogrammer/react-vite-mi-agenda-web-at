@@ -34,6 +34,7 @@ const Session4 = ({ refProp }) => {
         'Incluye un mes de soporte técnico personalizado',
         'Corrección de errores y actualizaciones esenciales',
         'Base de datos local integrada con cifrado mediante Firebase (Google)',
+        'Leer informes sin conexion a internet',
         'Compilación de la app con entrega lista para instalar y usar',
       ],
     },
@@ -44,6 +45,7 @@ const Session4 = ({ refProp }) => {
       benefits: [
         'Soporte técnico incluido',
         'Actualizaciones mientras dure la suscripción',
+        'Leer informes sin conexion a internet',
         'Ideal para iniciar sin compromisos a largo plazo',
       ],
     },
@@ -135,7 +137,7 @@ const Session4 = ({ refProp }) => {
           <Button
             variant="contained"
             color="success"
-            href={`https://api.whatsapp.com/send?phone=541132752125&text=${encodeURIComponent(
+            href={`https://api.whatsapp.com/send?phone=541131034391&text=${encodeURIComponent(
               `👋 ¡Hola! Estoy interesado en el plan *${selectedPlan?.title}*.\n\n` +
               `💰 *Precio:* ${selectedPlan?.price}\n` +
               `📝 *Descripción:* ${selectedPlan?.description}\n\n` +

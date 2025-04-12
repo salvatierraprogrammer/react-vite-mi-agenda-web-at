@@ -98,7 +98,7 @@ const Session3 = ({ refProp }) => {
   const handleFinish = () => {
     setOpenThanksModal(false);
   // window.open('https://drive.google.com/file/d/1Og-wMmXYk7GQ1YS2JfsqtelGvviUWATY/view?usp=sharing', '_blank');
-    window.open('https://expo.dev/artifacts/eas/vfrBK7aE7oNGfNMWEVfRmK.apk', '_blank');
+    window.open('https://expo.dev/artifacts/eas/9u3nGFq4U4yRrtNvQLzGzr.apk', '_blank');
     
   };
 
@@ -286,14 +286,33 @@ const Session3 = ({ refProp }) => {
             Ya casi estás listo. Hacé clic abajo para comenzar la descarga de la app.
           </Typography>
         </DialogContent>
+        
         <DialogActions>
           <Button
-            onClick={handleFinish}
+        
+            onClick={() => {
+              setOpenThanksModal(false);
+              window.open('https://expo.dev/artifacts/eas/9u3nGFq4U4yRrtNvQLzGzr.apk', '_blank');
+              handleFinish();
+            }}
             variant="contained"
             color="primary"
             startIcon={<DownloadIcon />}
           >
-            Ir a la descarga
+            Descargar App (APK)
+          </Button>
+          <Button
+          
+            onClick={() => {
+              setOpenThanksModal(false);
+              window.open('https://drive.google.com/file/d/1Og-wMmXYk7GQ1YS2JfsqtelGvviUWATY/view?usp=sharing', '_blank');
+              handleFinish();
+            }}
+            variant="outlined"
+            color="secondary"
+            startIcon={<DownloadIcon />}
+          >
+            Descargar desde Drive
           </Button>
         </DialogActions>
       </Dialog>
