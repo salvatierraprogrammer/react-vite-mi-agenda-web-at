@@ -11,6 +11,7 @@ import {
   DialogContent,
   DialogActions,
   IconButton,
+  Link,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -262,9 +263,13 @@ const Tutorial = () => {
     </IconButton>
   </DialogTitle>
   <DialogContent dividers>
-    <Typography variant="body1" sx={{ mb: 2 }}>
-      En este video te mostramos cómo analizar una aplicación descargada desde fuera de Play Store usando antivirus y herramientas de verificación, para que tengas total confianza antes de instalarla.
-    </Typography>
+  <Typography variant="body1" sx={{ mb: 2 }}>
+  En este video te mostramos cómo analizar una aplicación descargada fuera de Play Store usando antivirus y herramientas de verificación, para que tengas total confianza antes de instalarla. Podés utilizar herramientas como{' '}
+  <Link href="https://www.virustotal.com/" target="_blank" rel="noopener">
+    VirusTotal
+  </Link>
+  .
+</Typography>
     <Box sx={{ position: 'relative', paddingTop: '56.25%' }}>
   <iframe
     src="https://www.youtube.com/embed/OVpFHKcJhUM"
