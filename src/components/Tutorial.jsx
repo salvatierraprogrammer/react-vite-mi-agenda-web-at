@@ -34,8 +34,8 @@ const pasos = [
   { numero: 4, descripcion: 'Dar clic en "Abrir"', imagen: paso5 },
   { numero: 5, descripcion: 'Dar clic en "Instalar"', imagen: paso6 },
   { numero: 6, descripcion: 'Esperar a que finalice la instalación.', imagen: paso7 },
-  { numero: 7, descripcion: 'Dar clic en "Más detalles"', imagen: paso8 },
-  { numero: 8, descripcion: 'Seleccionar "Instalar de todas formas"', imagen: paso9 },
+  { numero: 7, descripcion: 'Dar clic en "Más detalles"', imagen: paso8, mostrarBoton: true },
+  { numero: 8, descripcion: 'Seleccionar "Instalar de todas formas"', imagen: paso9, mostrarBoton: true },
   { numero: 9, descripcion: 'Dar clic en "Abrir"', imagen: paso10 },
   { numero: 10, descripcion: 'Crear cuenta o iniciar sesión', imagen: paso11 },
 ];
@@ -158,15 +158,29 @@ const Tutorial = () => {
                       sx={{
                         mt: 'auto',
                         px: 1,
-                        wordWrap: 'break-word',
-                        overflowWrap: 'break-word',
-                        hyphens: 'auto',
-                        maxWidth: '100%',
-                        lineHeight: 1.4,
+                        mb: paso.mostrarBoton ? 2 : 0,
                       }}
                     >
                       {paso.descripcion}
                     </Typography>
+                    {paso.mostrarBoton && (
+                      <Button
+                        variant="contained"
+                        color="success"
+                        size="small"
+                        href="https://cafecito.app/elcanaldelat"
+                        target="_blank"
+                        sx={{
+                          fontWeight: 'bold',
+                          borderRadius: 2,
+                          boxShadow: 2,
+                          mt: 1,
+                          textTransform: 'none',
+                        }}
+                      >
+                        Donar para Google Play
+                      </Button>
+                    )}
                   </Box>
                 </Grid>
               ))}
@@ -214,23 +228,22 @@ const Tutorial = () => {
             </IconButton>
           </DialogTitle>
           <DialogContent dividers>
-          <Box sx={{ position: 'relative', paddingTop: '56.25%' }}>
-            <iframe
+            <Box sx={{ position: 'relative', paddingTop: '56.25%' }}>
+              <iframe
                 src="https://www.youtube.com/embed/Z-51rFgTd2g"
                 title="Tutorial de instalación"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
                 }}
-            ></iframe>
+              ></iframe>
             </Box>
-
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setOpenModal(false)} color="secondary">
