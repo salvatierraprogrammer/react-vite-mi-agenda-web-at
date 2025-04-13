@@ -8,6 +8,7 @@ import Session3 from '../components/Session3';
 import Session4 from '../components/Session4';
 import Session5 from '../components/Session5';
 import ScrollTopButton from '../components/ScrollTopButton';
+import Tutorial from '../components/Tutorial';
 
 const Home = () => {
   const session1Ref = useRef(null);
@@ -37,6 +38,7 @@ const Home = () => {
       </div>
         <div ref={session2Ref}><Session2 /></div>
         <div ref={session3Ref}><Session3 /></div>
+        <div ><Tutorial /></div>
         <div ref={session4Ref}><Session4 /></div>
         <div ref={session5Ref}><Session5 /></div>
         <ScrollTopButton />
